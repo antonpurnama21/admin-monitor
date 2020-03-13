@@ -1,0 +1,40 @@
+  /* ------------------- Default Style ------------------------- */
+
+  .gauge-container {
+    width: 250px;
+    height: 200px;
+    display: block;
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  /* ------------------- Alternate Style ------------------------- */
+
+  .gauge-container.two {
+    margin: 0 auto;
+    height: auto;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .gauge-container.two > .gauge > .dial {
+    stroke: #525d68;
+    stroke-width: 10;
+  }
+  .gauge-container.two > .gauge > .value {
+    /*stroke: orange;*/
+    stroke-dasharray: none;
+    stroke-width: 13;
+  }
+  .gauge-container.two > .gauge > .value {
+    /*fill: orange;*/
+  }
+
+  .display {
+    text-align: center;
+    overflow: auto;
+    padding: 20px 0;
+    overflow: hidden;
+  }
+
+  .label-gauge {
+    font-size: 18px;
+  }

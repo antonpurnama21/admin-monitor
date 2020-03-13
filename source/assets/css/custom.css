@@ -1,0 +1,183 @@
+/* Add here all your CSS customizations */
+
+.fail {
+    width: 30px;
+    height: 10px;
+    border: 1px solid #FF0000;
+    background: #FF0000;
+}
+
+.pass {
+    width: 30px;
+    height: 10px;
+    border: 1px solid #1089ff;
+    background: #1089ff;
+}
+
+.na {
+    width: 30px;
+    height: 10px;
+    border: 1px solid #fdd365;
+    background: #fdd365;
+}
+
+.nt {
+    width: 30px;
+    height: 10px;
+    border: 1px solid #b0eacd;
+    background: #b0eacd;
+}
+
+.ns {
+    width: 30px;
+    height: 10px;
+    border: 1px solid #b2dffb;
+    background: #b2dffb;
+}
+  
+.shadow {
+    border: 0px;
+    padding: 20px;
+    box-shadow: 1px 1px #888888;
+}
+
+.danger {
+    color: #FF0000;
+    -webkit-animation: blinkDanger 0.5s infinite;
+    -moz-animation: blinkDanger 0.5s infinite;
+    -ms-animation: blinkDanger 0.5s infinite;
+    -o-animation: blinkDanger 0.5s infinite;
+    animation: blinkDanger 0.5s infinite;
+}
+
+@-webkit-keyframes blinkDanger {
+    from { color: #FF0000; }
+    50% { color: #e1e1e1;}
+    to { color: #FF0000; }
+}
+@-moz-keyframes blinkDanger {
+    from { color: #FF0000; }
+    50% { color: #e1e1e1;}
+    to { color: #FF0000; }
+}
+@-ms-keyframes blinkDanger {
+    from { color: #FF0000; }
+    50% { color: #e1e1e1;}
+    to { color: #FF0000; }
+}
+@-o-keyframes blinkDanger {
+    from { color: #FF0000; }
+    50% { color: #e1e1e1;}
+    to { color: #FF0000; }
+}
+@keyframes blinkDanger {
+    from { color: #FF0000; }
+    50% { color: #e1e1e1;}
+    to { color: #FF0000; }
+}
+
+.Warning {
+    color: #FF0;
+    -webkit-animation: blinkWarning 0.5s infinite;
+    -moz-animation: blinkWarning 0.5s infinite;
+    -ms-animation: blinkWarning 0.5s infinite;
+    -o-animation: blinkWarning 0.5s infinite;
+    animation: blinkWarning 0.5s infinite;
+}
+
+@-webkit-keyframes blinkWarning {
+    from { color: #FF0; }
+    50% { color: #e1e1e1;}
+    to { color: #FF0; }
+}
+@-moz-keyframes blinkWarning {
+    from { color: #FF0; }
+    50% { color: #e1e1e1;}
+    to { color: #FF0; }
+}
+@-ms-keyframes blinkWarning {
+    from { color: #FF0; }
+    50% { color: #e1e1e1;}
+    to { color: #FF0; }
+}
+@-o-keyframes blinkWarning {
+    from { color: #FF0; }
+    50% { color: #e1e1e1;}
+    to { color: #FF0; }
+}
+@keyframes blinkWarning {
+    from { color: #FF0; }
+    50% { color: #e1e1e1;}
+    to { color: #FF0; }
+}
+
+.good {
+    color: #00ff11;
+}
+
+/* highchart */
+
+#container-stats {
+    height: 400px;
+    overflow: hidden;
+}
+
+/* nestable */
+.drag_disabled{
+    pointer-events: none;
+}
+.drag_enabled{
+    pointer-events: all;
+}
+.dd-expand{
+  pointer-events: auto;
+}
+.dd-collapse{
+  pointer-events: auto;
+}
+
+.select-nest {
+    background: #fff;
+    font-weight: bold;
+    width: 70px;
+    height: 22px;
+    border-radius: 5px;
+}
+
+.select-nest option {
+    font-weight: bold;
+}
+
+.form-nest {
+    background: #fff;
+    width: 70px;
+    height: 22px;
+    border-radius: 5px;
+}
+
+/* table parent child */
+.level0 {
+    background-color: #b0eacd;
+    font-weight: bold;
+}
+
+.level1 {
+    font-weight: bold;
+}
+
+.level2 {
+    font-weight: bold;
+    text-align: center;
+}
+
+.level3 {
+    text-align: right;
+}
+
+#ui-datepicker-div{
+    z-index: 10011 !important;
+}
+
+
+
+
