@@ -85,23 +85,23 @@ $(function() {
                 label.addClass("validation-valid-label").text("Successfully")
             },
             rules: {
-                device_name: {
+                v_device_name: {
                     required: true,
                     minlength: 2,
                     maxlength: 255
                 },
 
-                id_type: {
+                v_id_type: {
                     required: true,
                 }
             },
             messages: {
-                device_name: {
+                v_device_name: {
                     required: "Insert Device Name",
                     minlength: jQuery.validator.format(" {0} character needed"),
                     maxlength: jQuery.validator.format(" {0} character maximum")
                 },
-                id_type: {
+                v_id_type: {
                     required: "Please Select Type",
                 }
             },
@@ -123,7 +123,7 @@ $(function() {
                             window.location.reload();
                         }else if (data.code == 366){
                             $( "#modalForm" ).validate().showErrors({
-                                "device_name": data.message
+                                "v_device_name": data.message
                             });
                         }else{
                         notif('Error',data.message,'error');
@@ -157,10 +157,10 @@ function showModal(target,index,tipe){
 
         $.ajax({
             type:'POST',
-            url: $('#type_tc').val(),
+            url: $('#getType').val(),
             dataType:"JSON",
             success: function(data) {
-                $('#id_type').select2({
+                $('#v_id_type').select2({
                     dropdownParent: $('#modalContainer'),
                     placeholder: 'Pick Type',
                     data: data

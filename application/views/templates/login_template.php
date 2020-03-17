@@ -73,14 +73,16 @@
 				</a> -->
 
 				<div class="panel card-sign appear-animation" data-appear-animation="flipInY" data-appear-animation-delay="0" data-appear-animation-duration="1s">
-					<div class="card-title-sign mt-3 text-right">
+					<div class="mt-3 text-center">
+						<h1 style="font-family: Impact, Charcoal, sans-serif; font-size: 50px;">LOGIN TO DASHBOARD</h1>
+						<h4>ADMINISTRATOR</h4>
 					</div>
 					<div class="card-body">
 						<?php echo form_open('auth/do_login',array('id'=>'form-login')); ?>
 							<div class="form-group mb-3">
 								<label>Email</label>
 								<div class="input-group">
-									<input name="email" id="email" value="<?php if(isset($_COOKIE['email'])) { echo $_COOKIE['email']; } ?>" type="email" class="form-control" required />
+									<input name="login_email" id="login_email" value="<?php if(isset($_COOKIE['login_email'])) { echo $_COOKIE['login_email']; } ?>" type="email" class="form-control" required />
 									<span class="input-group-append">
 										<span class="input-group-text">
 											<i class="fas fa-user"></i>
@@ -95,7 +97,7 @@
 									<a href="<?=base_url('auth/forgot')?>" class="float-right">Lost Password?</a>
 								</div>
 								<div class="input-group">
-									<input name="password" id="password" value="<?php if(isset($_COOKIE['password'])) { echo $_COOKIE['password']; } ?>" type="password" class="form-control" required/>
+									<input name="login_password" id="login_password" value="<?php if(isset($_COOKIE['login_password'])) { echo $_COOKIE['login_password']; } ?>" type="password" class="form-control" required/>
 									<span class="input-group-append">
 										<span class="input-group-text">
 											<i class="fas fa-lock"></i>
@@ -107,7 +109,7 @@
 							<div class="row">
 								<div class="col-sm-8">
 									<div class="checkbox-custom checkbox-default">
-										<input id="RememberMe" name="rememberme" <?php if(isset($_COOKIE['email'])) { echo "checked"; } ?> type="checkbox"/>
+										<input id="RememberMe" name="rememberme" <?php if(isset($_COOKIE['login_email'])) { echo "checked"; } ?> type="checkbox"/>
 										<label for="RememberMe">Remember Me</label>
 									</div>
 								</div>

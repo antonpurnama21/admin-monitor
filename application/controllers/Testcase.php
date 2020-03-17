@@ -142,8 +142,134 @@ class Testcase extends CommonDash {
 			'titleWeb' 	=> 'Detail | Document Form Testcase',
             'breadcrumb'=> explode(',', 'Form Testcase, Detail'),
             'id_ms_form'=> $id,
-            'dtDetail'  => $this->mod->getData('result','*','form_dt_tc',null,null,null,array('id_ms_form'=>base64_decode($id), 'parent_id'=>'null'),null,array('tc_id'=>'ASC')),
         );
+        /** Generate Tabel */
+        /** Set Heading Tabel */
+        $this->table->set_heading(
+            array('data' => 'Test ID', 'width' => '10%'), 
+            array('data' => 'Test Name', 'width' => '45%'), 
+            array('data' => 'Description', 'width' => '30%','class'=>'text-right'), 
+            array('data' => 'Action', 'width' => '15%')
+        );
+
+        /** Get Data dari database */
+        $dMaster = $this->mod->getData('result','*','form_dt_tc',null,null,null,array('id_ms_form'=>base64_decode($id), 'parent_id'=>'null'),null,array('tc_id'=>'ASC'));
+        /** Kondisi jika hasil feedback dari database tidak kosong */
+        if (!empty($dMaster)) {
+            /** Perulangan data */
+                foreach ($dMaster as $key) {
+                    /** Cek Level */
+                    $cek = cekLevel($key->tc_id);
+                    if($cek != FALSE){
+                        $disable = 'disabled';
+                    }else{
+                        $disable = '';
+                    }
+                    /** Atribut untuk Kolom Aksi */
+                    $link_edit = base_url('testcase/modalEdit_detail');
+                    $link_delete = base_url('testcase/modalDelete_detail');
+                    $param = base64_encode($key->id_dt_form).'~'.$key->tc_name;
+                    
+                    /** Button Aksi */
+                    $action = '<a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showModal(\''.$link_edit.'\',\''.$param.'\',\'edit\');"><i class="icon-pencil"></i></a> <a class="btn btn-default btn-xs '.$disable.'" data-toggle="tooltip" data-placement="top" title="Delete" onclick="showModal(\''.$link_delete.'\',\''.$param.'\',\'delete\');"><i class="icon-trash"></i></a>';
+                    
+                    /** Set Row Tabel */
+                    $this->table->add_row( 
+                        array('data'=> $key->tc_id,'class'=>'text-center'), 
+                        array('data'=> $key->tc_name,'class'=>'level0'), 
+                        array('data'=> $key->description,'class'=>'text-right'),/** name_type function dari any_helper */
+                        array('data'=> $action,'class'=>'text-center')
+                    );
+                    /** Sub 1 */
+                    $sub1 = $this->mod->getData('result','*','form_dt_tc',null,null,null,array('parent_id'=>$key->tc_id));
+                    if (!empty($sub1)) {
+                        foreach ($sub1 as $key1) { 
+                            /** Cek Level sub1 */
+                            $cek1 = cekLevel($key1->tc_id);
+                            if($cek1 != FALSE){
+                                $disable = 'disabled';
+                            }else{
+                                $disable = '';
+                            }
+                            /** Atribut untuk Kolom Aksi */
+                            $link_edit = base_url('testcase/modalEdit_detail');
+                            $link_delete = base_url('testcase/modalDelete_detail');
+                            $param = base64_encode($key1->id_dt_form).'~'.$key1->tc_name;
+                             /** Button Aksi untuk sub1 */
+                            $action = '<a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showModal(\''.$link_edit.'\',\''.$param.'\',\'edit\');"><i class="icon-pencil"></i></a> <a class="btn btn-default btn-xs '.$disable.'" data-toggle="tooltip" data-placement="top" title="Delete" onclick="showModal(\''.$link_delete.'\',\''.$param.'\',\'delete\');"><i class="icon-trash"></i></a>';
+                            /** Set Row Tabel */
+                            $this->table->add_row( 
+                                array('data'=> $key1->tc_id,'class'=>'text-center'), 
+                                array('data'=> $key1->tc_name,'class'=>'level1'), 
+                                array('data'=> $key1->description,'class'=>'text-right'),/** name_type function dari any_helper */
+                                array('data'=> $action,'class'=>'text-center')
+                            );
+                            /** Sub 2 */
+                            $sub2 = $this->mod->getData('result','*','form_dt_tc',null,null,null,array('parent_id'=>$key1->tc_id));
+                            if (!empty($sub2)) {
+                                foreach ($sub2 as $key2) { 
+                                    /** Cek Level sub2 */
+                                    $cek2 = cekLevel($key2->tc_id);
+                                    if($cek2 != FALSE){
+                                        $classLevel = 'level2';
+                                        $disable = 'disabled';
+                                    }else{
+                                        $classLevel = 'level3';
+                                        $disable = '';
+                                    }
+                                    /** Atribut untuk Kolom Aksi */
+                                    $link_edit = base_url('testcase/modalEdit_detail');
+                                    $link_delete = base_url('testcase/modalDelete_detail');
+                                    $param = base64_encode($key2->id_dt_form).'~'.$key2->tc_name;
+                                    /** Button Aksi untuk sub2 */
+                                    $action = '<a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showModal(\''.$link_edit.'\',\''.$param.'\',\'edit\');"><i class="icon-pencil"></i></a> <a class="btn btn-default btn-xs '.$disable.'" data-toggle="tooltip" data-placement="top" title="Delete" onclick="showModal(\''.$link_delete.'\',\''.$param.'\',\'delete\');"><i class="icon-trash"></i></a>';
+                                    /** Set Row Tabel */
+                                    $this->table->add_row( 
+                                        array('data'=> $key2->tc_id,'class'=>'text-center'), 
+                                        array('data'=> $key2->tc_name,'class'=>$classLevel), 
+                                        array('data'=> $key2->description,'class'=>'text-right'),/** name_type function dari any_helper */
+                                        array('data'=> $action,'class'=>'text-center')
+                                    );
+                                    /** sub 3 */
+                                    $sub3 = $this->mod->getData('result','*','form_dt_tc',null,null,null,array('parent_id'=>$key2->tc_id));
+
+                                    if (!empty($sub3)) {
+                                        foreach ($sub3 as $key3) { 
+                                            /** Cek Level sub3 */
+                                            $cek3 = cekLevel($key3->tc_id);
+                                            if($cek3 != FALSE){
+                                                $classLevel = 'level3';
+                                                $disable = 'disabled';
+                                            }else{
+                                                $classLevel = 'level3';
+                                                $disable = '';
+                                            }
+                                            /** Atribut untuk Kolom Aksi */
+                                            $link_edit = base_url('testcase/modalEdit_detail');
+                                            $link_delete = base_url('testcase/modalDelete_detail');
+                                            $param = base64_encode($key3->id_dt_form).'~'.$key3->tc_name;
+                                            /** Button Aksi untuk sub2 */
+                                            $action = '<a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showModal(\''.$link_edit.'\',\''.$param.'\',\'edit\');"><i class="icon-pencil"></i></a> <a class="btn btn-default btn-xs '.$disable.'" data-toggle="tooltip" data-placement="top" title="Delete" onclick="showModal(\''.$link_delete.'\',\''.$param.'\',\'delete\');"><i class="icon-trash"></i></a>';
+                                            /** Set Row Tabel */
+                                            $this->table->add_row( 
+                                                array('data'=> $key3->tc_id,'class'=>'text-center'), 
+                                                array('data'=> $key3->tc_name,'class'=>$classLevel), 
+                                                array('data'=> $key3->description,'class'=>'text-right'),/** name_type function dari any_helper */
+                                                array('data'=> $action,'class'=>'text-center')
+                                            );
+                                        }
+                                    }                                
+                                }
+                            }
+                        }
+                    }
+                }
+            }else{
+                /** Row jika hasil feedback dari database kosong */
+                $row_empty = array('data'=> 'Data Empty !', 'colspan'=>5);
+                $this->table->add_row($row_empty);
+            }
+
         $this->render('dashboard_template', 'pages/form/detail_list', $data);
         }else{
             echo 'access forbidden ! <a href="'.base_url().'"> Back To Dashboard </a>';

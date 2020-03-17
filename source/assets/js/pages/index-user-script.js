@@ -89,54 +89,54 @@ $(function() {
                 label.addClass("validation-valid-label").text("Successfully")
             },
             rules: {
-                firstname: {
+                v_firstname: {
                     required: true,
                     minlength: 2,
                     maxlength: 255
                 },
-                lastname: {
+                v_lastname: {
                     required: true,
                     minlength: 2,
                     maxlength: 255
                 },
-                email: {
+                v_email: {
                     required: true,
                     minlength: 2,
                     maxlength: 255,
                     emailvalid: true
                 },
-                password: {
+                v_password: {
                     required: true,
                     minlength: 5,
                     maxlength: 255
                 },
 
-                id_role: {
+                v_id_role: {
                     required: true,
                 }
             },
             messages: {
-                firstname: {
+                v_firstname: {
                     required: "Insert First Name",
                     minlength: jQuery.validator.format(" {0} character needed"),
                     maxlength: jQuery.validator.format(" {0} character maximum")
                 },
-                lastname: {
+                v_lastname: {
                     required: "Insert Last Name",
                     minlength: jQuery.validator.format(" {0} character needed"),
                     maxlength: jQuery.validator.format(" {0} character maximum")
                 },
-                email: {
+                v_email: {
                     required: "Insert email",
                     emailvalid: "Your email must be in the format name@domain.com",
                     email: "Please enter a valid email address."
                 },
-                password: {
+                v_password: {
                     required: "Insert password",
                     minlength: jQuery.validator.format(" {0} character needed"),
                     maxlength: jQuery.validator.format(" {0} character maximum")
                 },
-                id_role: {
+                v_id_role: {
                     required: "Please Select Type",
                 }
             },
@@ -158,7 +158,7 @@ $(function() {
                             window.location.reload();
                         }else if (data.code == 366){
                             $( "#modalForm" ).validate().showErrors({
-                                "email": data.message
+                                "v_email": data.message
                             });
                         }else{
                         notif('Error',data.message,'error');
@@ -192,10 +192,10 @@ function showModal(target,index,tipe){
 
         $.ajax({
             type:'POST',
-            url: $('#role').val(),
+            url: $('#getRole').val(),
             dataType:"JSON",
             success: function(data) {
-                $('#id_role').select2({
+                $('#v_id_role').select2({
                     dropdownParent: $('#modalContainer'),
                     placeholder: 'Pick Role Access',
                     data: data

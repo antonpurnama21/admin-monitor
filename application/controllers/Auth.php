@@ -33,14 +33,14 @@ class Auth extends CI_Controller {
         $response = array();
         
         // Recieving post input of email, password from request
-        $email    = $this->input->post('email');
-        $password = sha1($this->input->post('password'));
+        $email    = $this->input->post('login_email');
+        $password = sha1($this->input->post('login_password'));
         $remember = $this->input->post('rememberme');
         
         #Login input validation\
         $this->form_validation->set_error_delimiters('<span class="text-white">', '</span>');
-        $this->form_validation->set_rules('email', 'User Email', 'trim|xss_clean|required|min_length[5]');
-        $this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required|min_length[5]');
+        $this->form_validation->set_rules('login_email', 'User Email', 'trim|xss_clean|required|min_length[5]');
+        $this->form_validation->set_rules('login_password', 'Password', 'trim|xss_clean|required|min_length[5]');
         
         // $this->form_validation->set_rules('g-recaptcha-response', 'Captcha', 'callback_google_captcha');
         // $this->form_validation->set_rules('g-recaptcha-response', 'Captcha', 'required|callback_validate_captcha');
@@ -57,20 +57,20 @@ class Auth extends CI_Controller {
                 $response['login_status'] = $login_status;
                 if ($login_status == 'success') {
                     $lokasi = base_url('dashboard'); //set lokasi
-                    $this->mod->updateData('users', array('last_login' => date('Y/m/d H:i:s')),array('emaiL' => $this->input->post('email') ));
+                    $this->mod->updateData('users', array('last_login' => date('Y/m/d H:i:s')),array('emaiL' => $email ));
                     
                     if ($this->input->post('rememberme')) {
-                        setcookie('email', $email, time() + (86400 * 30));
-                        setcookie('password', $this->input->post('password'), time() + (86400 * 30));
+                        setcookie('login_email', $email, time() + (86400 * 30));
+                        setcookie('login_password', $this->input->post('login_password'), time() + (86400 * 30));
                         $this->alert->set('success', 'Welcome '.$this->session->userdata('authlog')['firstname'].', you login as '.role_name($this->session->userdata('authlog')['role']).' !');
                         echo json_encode(array('code' => 200, 'aksi' => "window.location.href = '".$lokasi."'"));
                         
                     } else {
-                        if (isset($_COOKIE['email'])) {
-                            setcookie('email', '');
+                        if (isset($_COOKIE['login_email'])) {
+                            setcookie('login_email', '');
                         }
-                        if (isset($_COOKIE['password'])) {
-                            setcookie('password', '');
+                        if (isset($_COOKIE['login_password'])) {
+                            setcookie('login_password', '');
                         }
                         $this->alert->set('success', 'Welcome '.$this->session->userdata('authlog')['firstname'].', you login as '.role_name($this->session->userdata('authlog')['role']).' !');
                         echo json_encode(array('code' => 200, 'aksi' => "window.location.href = '".$lokasi."'"));

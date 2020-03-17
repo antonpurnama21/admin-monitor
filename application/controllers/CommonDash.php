@@ -13,6 +13,7 @@ class CommonDash extends CI_Controller {
 			redirect(base_url('auth/login')) ; 
 		endif;
 		$this->load->database();
+		$this->load->library('table');
 		$this->load->model('Mod_crud','mod');
 		$this->sess = $this->session->userdata('authlog');
 		 

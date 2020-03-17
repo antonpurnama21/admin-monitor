@@ -9,14 +9,6 @@
 
                 <h2 class="card-title">Checker Testcase Detail</h2>
             </header>
-
-            <?php $device = getData('result','*','device_tc');
-                foreach ($device as $keyt) {
-                    echo $keyt->id_device;
-                    echo $keyt->device_name;
-                }
-                    
-            ?>
             
             <div class="card-body">
                 <table class="table table-bordered table-striped display nowrap" id="datatable-default" style="width:100%">
@@ -110,7 +102,7 @@
                                                 if (cek_comment_exsist($key1->tc_id)== FALSE) {
                                                     $readonly = 'readonly';
                                                 } 
-                                                $dcomment = $this->mod->getData2('row','comment','trans_dt_tc',null,null,null,array('tc_id = "'.$key1->tc_id.'"','id_ms_trans = "'.$id_ms_trans.'"','comment != "null"'),array('tc_id'));
+                                                $dcomment = $this->mod->getData('row','comment','trans_dt_tc',null,null,null,array('tc_id'=>$key1->tc_id,'id_ms_trans'=>$id_ms_trans,'comment !='=>'null'),array('tc_id'));
                                                 $val = (isset($dcomment->comment)) ? $dcomment->comment : '';
                                                 ?>
                                                 <textarea data-tc_id="<?=$key1->tc_id?>" data-url="<?=base_url('checker/do_comment')?>" data-id_msform="<?=$id_ms_form?>" data-id_mstrans="<?=$id_ms_trans?>" class="comment_cek" cols="30" <?=(isset($readonly) ? $readonly : '')?>><?=$val?></textarea>
@@ -241,8 +233,8 @@
                                 ?>
                         <?php }
                         }else{
-                        $co = isset($countD) ? $countD : 1;
-                        $eRow = 4 + $co;   
+                            $co = isset($countD) ? $countD : 1;
+                            $eRow = 4 + $co;   
                         ?>
                         <td colspan="<?=$eRow?>">Empty data ..</td>
                         <?php }?>                        

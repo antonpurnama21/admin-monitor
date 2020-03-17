@@ -85,14 +85,14 @@ $(function() {
                 label.addClass("validation-valid-label").text("Successfully")
             },
             rules: {
-                name_type: {
+                v_name_type: {
                     required: true,
                     minlength: 2,
                     maxlength: 255
                 }
             },
             messages: {
-                name_type: {
+                v_name_type: {
                     required: "Insert Type Name",
                     minlength: jQuery.validator.format(" {0} character needed"),
                     maxlength: jQuery.validator.format(" {0} character maximum")
@@ -116,7 +116,7 @@ $(function() {
                             window.location.reload();
                         }else if (data.code == 366){
                             $( "#modalForm" ).validate().showErrors({
-                                "name_type": data.message
+                                "v_name_type": data.message
                             });
                         }else{
                         notif('Error',data.message,'error');

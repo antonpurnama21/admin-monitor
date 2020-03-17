@@ -94,23 +94,23 @@ $(function() {
             label.addClass("validation-valid-label").text("Successfully")
         },
         rules: {
-            password: {
+            login_password: {
                 required: true,
                 minlength: 5,
                 maxlength: 15
             },
-            email: {
+            login_email: {
                 required: true,
                 emailvalid: true
             }
         },
         messages: {
-            email: {
+            login_email: {
                 required: "Insert your email",
                 emailvalid: "Your email must be in the format name@domain.com",
                 email: "Please enter a valid email address."
             },
-            password: {
+            login_password: {
                 required: "Insert your password",
                 minlength: jQuery.validator.format(" {0} character needed"),
                 maxlength: jQuery.validator.format(" {0} character maximum")
@@ -134,11 +134,11 @@ $(function() {
                         eval(data.aksi);
                       }else if (data.code == 366){
                         $( "#form-login" ).validate().showErrors({
-                            "email": data.message
+                            "login_email": data.message
                           });
                       }else if (data.code == 367){
                         $( "#form-login" ).validate().showErrors({
-                            "password": data.message
+                            "login_password": data.message
                           });
                       }else{
                         notif('Error',data.message,'error');

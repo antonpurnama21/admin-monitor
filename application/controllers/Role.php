@@ -7,7 +7,6 @@ class Role extends CommonDash {
 	public function __construct()
 	{
         parent::__construct();
-        
 	}
 
     public function index()
@@ -26,8 +25,45 @@ class Role extends CommonDash {
 			),
 			'titleWeb' 	=> 'List | Role Access',
 			'breadcrumb'=> explode(',', 'Dashboard, List role'),
-            'data'      => $this->mod->getData('result','*','role_access'),
         );
+        /** Generate Tabel */
+        /** Set Heading Tabel */
+        $this->table->set_heading(
+            array('data' => 'NO', 'width' => '5%'), 
+            array('data' => 'ID Role', 'width' => '10%'), 
+            array('data' => 'Role Name', 'width' => '70%'), 
+            array('data' => 'Action', 'width' => '15%')
+        );
+
+        /** Get Data dari database */
+        $dtMaster = $this->mod->getData('result','*','role_access');
+        /** Kondisi jika hasil feedback dari database tidak kosong */
+        if (!empty($dtMaster)) {
+            $no = 0;
+            /** Perulangan data */
+                foreach ($dtMaster as $key) {
+                    $no++;
+                    /** Atribut untuk Kolom Aksi */
+                    $link = base_url('role/modalEdit');
+                    $link_delete = base_url('role/modalDelete');
+                    $param = base64_encode($key->id_role).'~'.$key->role;
+                    /** Button Aksi */
+                    $action = '<a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" onclick="showModal(\''.$link.'\',\''.$param.'\',\'edit\');"><i class="icon-pencil"></i></a> <a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="Delete" onclick="showModal(\''.$link_delete.'\',\''.$param.'\',\'edit\');"><i class="icon-trash"></i></a>';
+                    
+                    /** Set Row Tabel */
+                    $this->table->add_row(
+                        array('data'=> $no), 
+                        array('data'=> $key->id_role), 
+                        array('data'=> $key->role),
+                        array('data'=> $action,'class'=>'text-center')
+                    );
+                }
+            }else{
+                /** Row jika hasil feedback dari database kosong */
+                $row_empty = array('data'=> 'Data Empty !', 'colspan'=>4);
+                $this->table->add_row($row_empty);
+            }
+
 		$this->render('dashboard_template', 'pages/role/index', $data);
     }
 
@@ -43,13 +79,13 @@ class Role extends CommonDash {
     public function do_save()
     {
         $response = array();
-        $name     = $this->input->post('role');
+        $name     = $this->input->post('v_role');
         $date     = date('Y-m-d h:i:sa');
         
         #Login input validation\
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<span class="text-white">', '</span>');
-        $this->form_validation->set_rules('role', 'Role Name', 'trim|xss_clean|required|min_length[2]|max_length[50]');
+        $this->form_validation->set_rules('v_role', 'Role Name', 'trim|xss_clean|required|min_length[2]|max_length[50]');
 
         if ($this->form_validation->run() == FALSE) {
             echo json_encode(array('code' => 404, 'message' => validation_errors()));
@@ -92,13 +128,13 @@ class Role extends CommonDash {
     public function do_edit()
     {
         $response = array();
-        $name     = $this->input->post('role');
+        $name     = $this->input->post('v_role');
         $date     = date('Y-m-d h:i:sa');
         
         #Login input validation\
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<span class="text-white">', '</span>');
-        $this->form_validation->set_rules('role', 'Role Name', 'trim|xss_clean|required|min_length[2]|max_length[50]');
+        $this->form_validation->set_rules('v_role', 'Role Name', 'trim|xss_clean|required|min_length[2]|max_length[50]');
 
         if ($this->form_validation->run() == FALSE) {
             echo json_encode(array('code' => 404, 'message' => validation_errors()));
@@ -111,7 +147,7 @@ class Role extends CommonDash {
                     'role'	        => $name,
                     'updated_by'    => $this->session->userdata('authlog')['user_login_id'],
                     'updated_at'	=> $date
-                    ), array('id_role'=>base64_decode($this->input->post('id_role')))
+                    ), array('id_role'=>base64_decode($this->input->post('v_id_role')))
                 );
 
                 if ($updatedata){//jika bernilai true
